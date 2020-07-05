@@ -24,7 +24,5 @@ class Test(TestCase):
     def test_fetch(self):
         items = self.get_items()
         bands = ['BQA']
-        config.DATADIR = ''
-        config.FILENAME = os.path.join(testpath, 'test_fetch/${collection}_${date}')
         new_items = fetch(items, items._search.get('parameters', {}).get('intersects', {}), bands)
 

@@ -5,7 +5,6 @@ import tempfile
 
 from gippy import GeoImage, GeoVector, algorithms as algs
 from satstac import Item
-from satsearch import config
 
 logger = logging.getLogger(__name__)
 
@@ -79,14 +78,14 @@ def create_derived_item(items, geometry):
 
 
 
-def fetch(items, geometry, keys, path=config.DATADIR, filename=config.FILENAME, proj=None, res=None):
+def fetch(items, geometry, keys, filename_template='${collection}/${date}/${id}', proj=None, res=None):
     """ This fetches data from just the AOI and clips it """
     derived_item = create_derived_item(items, geometry)
 
     bands = []
     for k in keys:
         bands += items[0].asset(k).get('eo:bands', [])
-    filename = items[0].get_filename(path=path, filename=filename).replace('.json','.tif')
+    filename = items[0].get_filename(path='', filename=filename_template).replace('.json', '.tif')
     os.makedirs(os.path.dirname(filename), exist_ok=True)
 
     derived_item._data['assets'] = {

@@ -1,2 +1,2 @@
-sat-search~=0.2.2
+sat-search~=0.2.3
 gippy~=1.0.3
